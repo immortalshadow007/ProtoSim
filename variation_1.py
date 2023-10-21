@@ -2,10 +2,19 @@ import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
+from datetime import datetime
 
 # Set the style of seaborn for better visualization
 sns.set_style("whitegrid")
 sns.set_palette("pastel")
+
+# Define the directory name
+dir_name = "variation_a_plot"
+
+# Check if directory exists, if not, create it
+if not os.path.exists(dir_name):
+    os.makedirs(dir_name)
 
 # P1. Initial Conditions
 initial_connection_distribution = stats.norm.rvs(loc=500, scale=100, size=1000)
@@ -45,6 +54,8 @@ plt.ylabel('Number of Views', fontsize=14)
 plt.xticks(rotation=45, fontsize=12)
 plt.yticks(fontsize=12)
 plt.tight_layout()
-plt.show()
+current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+plot_filename = os.path.join(dir_name, f"variation_a_plot_{current_time}.png")
+plt.savefig(plot_filename)
 
 print(f"Total views after {simulation_duration} days: {sum(views_by_subscription.values())}")
