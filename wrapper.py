@@ -21,9 +21,9 @@ cursor = conn.cursor()
 
 # Define paths to the scripts
 scripts = {
-    "baseline": "path_to_baseline_script.py",
-    "variation_a": "path_to_variation_a_script.py",
-    "variation_b": "path_to_variation_b_script.py"
+    "baseline": "C:\\Users\\HP Pavilion\\Sims-and-Proto\\baseline.py",
+    "variation_a": "C:\\Users\\HP Pavilion\\Sims-and-Proto\\variation_1.py",
+    "variation_b": "C:\\Users\\HP Pavilion\\Sims-and-Proto\\variation_2.py"
 }
 
 # Number of runs
@@ -35,25 +35,35 @@ for run in range(num_runs):
 
     for variation, script_path in scripts.items():
         # Execute the script and capture the output
-        output = os.popen(f"python {script_path}").read()
+        output = os.popen(f'python "{script_path}"').read()
         
         # Extract the total views from the output
-        total_views = int(output.split(":")[-1].strip())
+        try:
+            total_views = int(output.split(":")[-1].strip())
+        except ValueError:
+            print(f"Unexpected output from {script_path}: {output}")
+            continue
+
         
         # Store the total views in the results dictionary
         results[variation] = total_views
 
     # Construct the SQL query
     sql_query = """
-    INSERT INTO "Sim Data" (ID, baseline_views, variation_a_views, variation_b_views, baseline_plot, variation_a_plot, variation_b_plot)
-    VALUES (DEFAULT, %s, %s, %s, %s, %s, %s);
+    INSERT INTO "Sim Data" (baseline_views, variation_a_views, variation_b_views, baseline_plot, variation_a_plot, variation_b_plot, timestamp)
+    VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, DEFAULT);
     """
+
+    sql_query = """
+    INSERT INTO "Sim Data" (run_id, baseline_views, variation_a_views, variation_b_views, baseline_plot, variation_a_plot, variation_b_plot, "timestamp")
+    VALUES (%s, %s, %s, %s, %s, %s, %s, DEFAULT);
+"""
 
     # Define paths to the saved plots
     plot_paths = {
-        "baseline": "path_to_baseline_plot_directory",
-        "variation_a": "path_to_variation_a_plot_directory",
-        "variation_b": "path_to_variation_b_plot_directory"
+        "baseline": "C:\\Users\\HP Pavilion\\Sims-and-Proto\\baseline_plot",
+        "variation_a": "C:\\Users\\HP Pavilion\\Sims-and-Proto\\variation_a_plot",
+        "variation_b": "C:\\Users\\HP Pavilion\\Sims-and-Proto\\variation_b_plot"
     }
 
     # Fetch the latest saved plots for each variation
@@ -63,7 +73,9 @@ for run in range(num_runs):
         latest_plots[variation] = os.path.join(plot_dir, latest_plot)
 
     # Insert data into the database
-    cursor.execute(sql_query, (results["baseline"], results["variation_a"], results["variation_b"], latest_plots["baseline"], latest_plots["variation_a"], latest_plots["variation_b"]))
+    # Execute the SQL query
+    # Execute the SQL query
+    cursor.execute(sql_query, (run, results["baseline"], results["variation_a"], results["variation_b"], latest_plots["baseline"], latest_plots["variation_a"], latest_plots["variation_b"]))
     conn.commit()
 
 cursor.close()
