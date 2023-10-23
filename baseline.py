@@ -62,4 +62,8 @@ current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 plot_filename = os.path.join(dir_name, f"plot_{current_time}.png")
 plt.savefig(plot_filename)
 
+# Print the results
 print(f"Total views after {simulation_duration} days: {sum(daily_views)}")
+print("Daily views for each day:")
+for day, views in enumerate(daily_views, 1):
+    print(f"Day {day}: {views} views")
