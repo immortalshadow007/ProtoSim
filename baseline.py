@@ -48,6 +48,7 @@ for day in range(simulation_duration):
         daily_view_count = min(daily_view_count, max_daily_views)
     daily_view_count += int(daily_view_count * external_influence_factor)
     daily_views.append(daily_view_count)
+print(",".join(map(str, daily_views)))
 
 # Visualization using seaborn and matplotlib
 plt.figure(figsize=(10, 6))

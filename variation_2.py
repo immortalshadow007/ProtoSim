@@ -46,6 +46,7 @@ for day in range(simulation_duration):
             if np.random.rand() < view_probability(initial_connection_distribution[user], user_subscriptions[user]):
                 daily_view_count += 1
     daily_views.append(daily_view_count)
+print(",".join(map(str, daily_views)))
 
 # Visualization using seaborn and matplotlib
 plt.figure(figsize=(10, 6))
