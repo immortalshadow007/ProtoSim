@@ -1,4 +1,18 @@
-# ProtoSim
-ProtoSim: A comprehensive framework for simulating real-time data to conduct A/B testing on AI model prototypes. This project automates the generation of random data to test baseline versions against variants, providing a robust analysis script for evaluating model performance and decision-making. Ideal for researchers and developers seeking to optimize AI models before deployment.
+### ProtoSim: Automated A/B Testing Framework
 
-Note: This project is a work in progress.
+**Description:**
+
+ProtoSim is a comprehensive framework designed to facilitate automated A/B testing for AI model prototypes. The project workflow involves:
+
+1. **Data Generation**: Creates random data for two app variations.
+2. **Data Analysis**: Processes the generated data through an analysis pipeline, producing insights and visualizations.
+3. **Data Storage**: Organizes analyzed data in a PostgreSQL database, while storing graph images in a local folder and recording their file paths in the database.
+
+**Key Features:**
+- **Automated A/B Testing**: Seamlessly generates and analyzes data for different app variations.
+- **Data Insights**: Provides detailed analysis and visual representation of results.
+- **Efficient Storage**: Manages data and visualizations efficiently using PostgreSQL and local file storage.
+
+This project demonstrates advanced skills in data generation, analysis, visualization, and database management, leveraging Python and PostgreSQL for robust performance and organization.
+
+[GitHub Repository](https://github.com/immortalshadow007/ProtoSim)
