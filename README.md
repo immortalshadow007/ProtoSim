@@ -9,7 +9,6 @@ ProtoSim is a project designed to facilitate automated A/B testing for AI model 
 3. **Data Storage**: Organizes analyzed data in a PostgreSQL database.
 
 **Key Features:**
-- **Automated A/B Testing**: Seamlessly generates and analyzes data for different app variations.
 - **Data Insights**: Provides detailed analysis and visual representation of results.
 - **Efficient Storage**: Manages data and visualizations efficiently using PostgreSQL and local file storage.
 
